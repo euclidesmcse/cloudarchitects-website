@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <defs>
+    <linearGradient id="lg-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <!-- Hexagonal geometric shape -->
+  <polygon points="12,25 22,15 32,15 42,25 32,35 22,35" fill="url(#lg-primary)" opacity="0.9"/>
+  <!-- Cloud overlay -->
+  <path d="M18 28 Q20 24 25 25 Q27 22 31 23 Q33 21 36 23 Q39 22 40 26 Q42 27 40 30 L18 30Z" fill="#0F172A" opacity="0.8"/>
+  <!-- Text -->
+  <text x="50" y="32" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="18" fill="#E2E8F0" letter-spacing="-0.5">Cloud</text>
+  <text x="50" y="48" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="11" fill="#94A3B8" letter-spacing="2">ARCHITECTS</text>
+</svg>

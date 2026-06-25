@@ -1,0 +1,44 @@
+# =========================================================================
+#  Cloud Architects — Site Principal (Next.js + Payload CMS)
+# =========================================================================
+name: cloudarchitects-website
+
+services:
+  web:
+    build: .
+    container_name: cloudarchitects-web
+    environment:
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - NEXT_PUBLIC_APP_URL=https://cloudarchitect.com.br
+      - CMS_ADMIN_EMAIL=${CMS_ADMIN_EMAIL:-admin@cloudarchitects.com}
+      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:-Admin123!}
+      - HOSTNAME=0.0.0.0
+    volumes:
+      - payload_data:/app/data
+    networks:
+      - default
+      - edge
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=edge
+      - traefik.http.routers.cloudarchitects.rule=Host(`cloudarchitect.com.br`) || Host(`www.cloudarchitect.com.br`)
+      - traefik.http.routers.cloudarchitects.entrypoints=websecure
+      - traefik.http.routers.cloudarchitects.tls=true
+      - traefik.http.routers.cloudarchitects.tls.certresolver=le
+      - traefik.http.routers.cloudarchitects.middlewares=secure-headers@file
+      - traefik.http.services.cloudarchitects.loadbalancer.server.port=3000
+
+volumes:
+  payload_data:
+    name: cloudarchitects_payload_data
+
+networks:
+  edge:
+    external: true
