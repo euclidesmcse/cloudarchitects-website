@@ -8,10 +8,12 @@ services:
     build: .
     container_name: cloudarchitects-web
     environment:
-      - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      # Todos os secrets são obrigatórios — falha na inicialização se ausentes.
+      # Defina via .env no host Docker ou via GitHub Secrets/orquestrador.
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:?PAYLOAD_SECRET obrigatório — defina no .env (mínimo 32 chars)}
       - NEXT_PUBLIC_APP_URL=https://cloudarchitect.com.br
-      - CMS_ADMIN_EMAIL=${CMS_ADMIN_EMAIL:-admin@cloudarchitects.com}
-      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:-Admin123!}
+      - CMS_ADMIN_EMAIL=${CMS_ADMIN_EMAIL:?CMS_ADMIN_EMAIL obrigatório — defina no .env}
+      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:?CMS_ADMIN_PASSWORD obrigatório — defina no .env (mínimo 16 chars)}
       - HOSTNAME=0.0.0.0
     volumes:
       - payload_data:/app/data
