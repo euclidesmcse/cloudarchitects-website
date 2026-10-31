@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cloud Architects — Website (Next.js + Payload CMS)
 
-## Getting Started
+Site principal da Cloud Architects: **Next.js 16** (App Router) + **Payload CMS 3** + React 19 + Tailwind 4, com SQLite local.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Componente | Versão |
+|---|---|
+| Next.js | 16.2.9 |
+| Payload CMS | 3.85.x (`@payloadcms/next`, `db-sqlite`, `richtext-lexical`) |
+| React | 19.2.4 |
+| Tailwind CSS | 4 |
+| Banco | SQLite (`file:/app/data/payload.db`) |
+
+## Estrutura
+
+```
+src/
+├── app/            # App Router (layout, page, globals.css, middleware)
+├── collections/    # Post, Category, Media, Users
+├── lib/            # navigation, utils
+├── migrations/     # migrations do Payload
+├── payload.config.ts
+└── payload-types.ts
+public/             # imagens e assets estáticos
+data/               # payload.db (runtime)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Domínio
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `cloudarchitect.com.br` e `www.cloudarchitect.com.br` (router Traefik, TLS `le`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Variáveis de ambiente (`.env`)
 
-## Learn More
+| Variável | Uso |
+|---|---|
+| `PAYLOAD_SECRET` | assinatura de tokens do Payload (obrigatória) |
+| `DATABASE_URI` | `file:/app/data/payload.db` |
+| `NEXT_PUBLIC_APP_URL` | URL pública |
+| `CMS_ADMIN_EMAIL` / `CMS_ADMIN_PASSWORD` | admin inicial |
+| `ADSENSE_PUBLISHER_ID` | opcional |
 
-To learn more about Next.js, take a look at the following resources:
+## Desenvolvimento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+cp .env.example .env
+npm run dev        # http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Build / produção
 
-## Deploy on Vercel
+```bash
+docker compose up -d --build
+docker compose ps
+docker logs cloudarchitects-web --tail 50
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Volume persistente: `cloudarchitects_payload_data` (`/app/data`). Rede `edge` (external).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚠️ Observações
+
+- O `docker-compose.yml` define um **default fraco para `CMS_ADMIN_PASSWORD`** — remover o default e usar segredo forte via `.env`/Infisical.
+- `AGENTS.md` avisa que esta versão do Next.js tem breaking changes; consultar `node_modules/next/dist/docs/`.
+- Repositório GitHub: `euclidesmcse/cloudarchitects-website`.
+
+## Documentação
+
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — arquitetura e modelo de dados.
+- [`RUNBOOK.md`](./RUNBOOK.md) — operação, backup e troubleshooting.
