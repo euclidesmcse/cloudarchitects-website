@@ -5,14 +5,18 @@ name: cloudarchitects-website
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        - PAYLOAD_SECRET=${PAYLOAD_SECRET}
     container_name: cloudarchitects-web
     environment:
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
       - NEXT_PUBLIC_APP_URL=https://cloudarchitect.com.br
       - ADSENSE_PUBLISHER_ID=${ADSENSE_PUBLISHER_ID:-}
       - CMS_ADMIN_EMAIL=${CMS_ADMIN_EMAIL:-admin@cloudarchitects.com}
-      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:-Admin123!}
+      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:?CMS_ADMIN_PASSWORD em falta no .env}
+      - DATABASE_URI=file:/app/data/payload.db
       - HOSTNAME=0.0.0.0
     volumes:
       - payload_data:/app/data
