@@ -18,6 +18,8 @@ COPY . .
 # "/login".startsWith("login") === false → public routes never detected!
 # See: scripts/patch-payload-bug.cjs
 RUN node scripts/patch-payload-bug.cjs
+ARG PAYLOAD_SECRET
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 RUN npm run build
 
 # ─── Stage 3: Runner ────────────────────────────
@@ -43,6 +45,7 @@ COPY --from=build /app/public ./public
 # Entrypoint & DB init
 COPY scripts/entrypoint.sh /entrypoint.sh
 COPY scripts/init-db.cjs /app/init-db.cjs
+COPY scripts/payload-schema.json /app/payload-schema.json
 RUN chmod 755 /entrypoint.sh
 
 RUN mkdir -p /app/data && chown -R nextjs:nodejs /app

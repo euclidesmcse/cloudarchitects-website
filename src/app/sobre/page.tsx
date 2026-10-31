@@ -1,301 +1,120 @@
-import Link from "next/link";
-import {
-  Target,
-  Eye,
-  Heart,
-  Shield,
-  Zap,
-  Users,
-  Award,
-  ArrowRight,
-  Lightbulb,
-  Handshake,
-  Rocket,
-  CheckCircle,
-} from "lucide-react";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Target, Eye, Shield, Heart, Zap, Users, Lightbulb, Handshake, Rocket, Check } from "lucide-react";
+import { PageHero, SectionHeading, CTASection, HUE } from "@/components/site/primitives";
+
+const valores = [
+  { icon: Shield, titulo: "Excelência Técnica", descricao: "Cada arquitectura é desenhada com os mais altos padrões de qualidade, segurança e performance. Não comprometemos a excelência.", hue: HUE.blue },
+  { icon: Heart, titulo: "Paixão pela Inovação", descricao: "Exploramos constantemente novas tecnologias e abordagens para oferecer soluções na vanguarda do mercado cloud.", hue: HUE.violet },
+  { icon: Handshake, titulo: "Parceria Transparente", descricao: "Acreditamos numa relação aberta e honesta com os clientes. Comunicamos com clareza e alinhamento constante.", hue: HUE.cyan },
+  { icon: Zap, titulo: "Agilidade e Eficiência", descricao: "Entregamos resultados com rapidez sem sacrificar a qualidade. Processos optimizados e equipas focadas em valor real.", hue: HUE.amber },
+  { icon: Lightbulb, titulo: "Pensamento Crítico", descricao: "Desafiamos o status quo. Questionamos premissas e desenhamos soluções que resolvem problemas, não os disfarçam.", hue: HUE.green },
+  { icon: Rocket, titulo: "Impacto no Negócio", descricao: "Cada projecto é medido pelo impacto real nos objectivos de negócio dos clientes. Tecnologia que gera resultados.", hue: HUE.blue },
+];
+
+const chips = [
+  "Multi-cloud: AWS · Azure · GCP · OCI",
+  "SLA alvo de 99,9%",
+  "Cloud · DevOps · IA sob um só teto",
+  "Certificações AWS, Azure & GCP",
+];
 
 export default function Sobre() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────── */}
-      <Section className="relative flex min-h-[60vh] items-center overflow-hidden pt-0">
-        {/* Background gradient */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-950/30 via-surface-950 to-surface-950" />
-        <div className="pointer-events-none absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-brand-600/10 blur-[120px]" />
-        <div className="pointer-events-none absolute -bottom-40 left-0 h-[400px] w-[400px] rounded-full bg-accent-600/10 blur-[100px]" />
+      <PageHero
+        eyebrow="Sobre nós"
+        title={
+          <>
+            Tecnologia que <span className="gradient-text">transforma negócios.</span>
+          </>
+        }
+        lede="Somos uma equipa de arquitectos cloud, engenheiros DevOps e especialistas em IA que acreditam no poder da tecnologia para impulsionar resultados reais."
+        primary={{ href: "/contacto", label: "Falar com engenharia" }}
+        secondary={{ href: "/servicos", label: "Ver serviços" }}
+      />
 
-        <Container className="relative z-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <Badge
-              variant="outline"
-              className="mb-6 border-brand-600/30 text-brand-400"
-            >
-              Sobre Nós
-            </Badge>
-
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-surface-50 sm:text-5xl lg:text-6xl">
-              Tecnologia que{" "}
-              <span className="bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent">
-                transforma negócios
-              </span>
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-surface-400">
-              Somos uma equipa de arquitectos cloud, engenheiros DevOps e
-              especialistas em IA que acreditam no poder da tecnologia para
-              impulsionar resultados reais.
-            </p>
-
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href="/contacto">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Fale Connosco
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/servicos">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Ver Serviços
-                </Button>
-              </Link>
+      {/* História + Missão/Visão */}
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-12 lg:grid-cols-2">
+          <div className="ca-rise">
+            <SectionHeading eyebrow="A nossa história" title="De uma visão à excelência em cloud" />
+            <div className="ca-font-sans mt-6 space-y-4 leading-relaxed text-slate-600">
+              <p>A Cloud Architects nasceu da convicção de que a infraestrutura tecnológica não deve ser um obstáculo — deve ser um motor de crescimento. Fundada por engenheiros com experiência em algumas das maiores plataformas cloud do mundo, surgiu para preencher a lacuna entre a tecnologia de ponta e as necessidades reais das empresas.</p>
+              <p>Desde o primeiro dia, o foco é claro: desenhar, implementar e operar infraestruturas cloud seguras, escaláveis e eficientes. Combinamos experiência em arquitectura multi-cloud, DevOps e inteligência artificial para entregar soluções que fazem a diferença.</p>
+              <p>Servimos empresas de diversos sectores, de startups em crescimento a organizações enterprise, ajudando-as a navegar a transformação digital com confiança e excelência técnica.</p>
             </div>
           </div>
-        </Container>
-      </Section>
 
-      {/* ── História & Missão ────────────────── */}
-      <Section>
-        <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            {/* Left: Story */}
-            <div>
-              <Badge className="mb-4">A Nossa História</Badge>
-              <h2 className="text-3xl font-bold tracking-tight text-surface-50 sm:text-4xl">
-              De uma visão à excelência em cloud
-              </h2>
-              <div className="mt-6 space-y-4 text-surface-400 leading-relaxed">
-                <p>
-                  A Cloud Architects nasceu da convicção de que a infraestrutura
-                  tecnológica não deve ser um obstáculo — deve ser um motor de
-                  crescimento. Fundada por engenheiros com experiência em
-                  algumas das maiores plataformas cloud do mundo, a nossa
-                  empresa surgiu para preencher a lacuna entre a tecnologia de
-                  ponta e as necessidades reais das empresas.
-                </p>
-                <p>
-                  Desde o primeiro dia, o nosso foco tem sido claro: desenhar,
-                  implementar e operar infraestruturas cloud que sejam seguras,
-                  escaláveis e eficientes. Combinamos décadas de experiência em
-                  arquitectura multi-cloud, DevOps e inteligência artificial
-                  para entregar soluções que fazem a diferença.
-                </p>
-                <p>
-                  Hoje, servimos empresas de diversos sectores, desde startups
-                  em crescimento a organizações enterprise, ajudando-as a
-                  navegar a transformação digital com confiança e excelência
-                  técnica.
-                </p>
+          <div className="flex flex-col gap-4">
+            {[
+              { icon: Target, hue: HUE.blue, t: "Missão", d: "Democratizar o acesso à excelência em infraestrutura cloud, com arquitecturas robustas, automação inteligente e agentes de IA que permitem às empresas focar no que importa: o seu negócio." },
+              { icon: Eye, hue: HUE.cyan, t: "Visão", d: "Ser referência ibérica em arquitectura cloud e automação inteligente, reconhecida pela qualidade técnica, inovação constante e impacto real nos resultados dos clientes." },
+            ].map((c) => (
+              <div
+                key={c.t}
+                className="ca-rise rounded-3xl border border-slate-200/60 bg-white p-7 shadow-[0_20px_50px_-30px_rgba(10,27,51,0.25)] transition-transform duration-300 hover:-translate-y-1.5"
+              >
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-2xl text-white"
+                  style={{ background: `linear-gradient(135deg, ${c.hue}, ${c.hue}cc)`, boxShadow: `0 10px 24px -8px ${c.hue}66` }}
+                >
+                  <c.icon className="h-5 w-5" />
+                </div>
+                <h3 className="ca-font-display mt-4 text-xl font-semibold text-[#0a1b33]">{c.t}</h3>
+                <p className="ca-font-sans mt-2.5 leading-relaxed text-slate-600">{c.d}</p>
               </div>
-            </div>
-
-            {/* Right: Mission & Vision cards */}
-            <div className="space-y-6">
-              <Card glow className="border-brand-600/20">
-                <CardContent className="p-6 sm:p-8">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600/20 to-accent-600/20 text-brand-400 ring-1 ring-brand-600/20">
-                    <Target className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-surface-50">
-                    Missão
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-surface-400">
-                    Democratizar o acesso à excelência em infraestrutura cloud,
-                    disponibilizando arquitecturas robustas, automação
-                    inteligente e agentes de IA que permitem às empresas focar
-                    no que realmente importa: o seu negócio.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card glow className="border-accent-600/20">
-                <CardContent className="p-6 sm:p-8">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-600/20 to-purple-600/20 text-accent-400 ring-1 ring-accent-600/20">
-                    <Eye className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-surface-50">
-                    Visão
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-surface-400">
-                    Ser referência ibérica em arquitectura cloud e automação
-                    inteligente, reconhecida pela qualidade técnica, inovação
-                    constante e impacto real nos resultados dos nossos clientes.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── Valores ──────────────────────────── */}
-      <Section muted>
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <Badge className="mb-4">Os Nossos Valores</Badge>
-            <h2 className="text-3xl font-bold tracking-tight text-surface-50 sm:text-4xl">
-              O que nos define
-            </h2>
-            <p className="mt-4 text-surface-400">
-              Princípios que guiam cada decisão, cada linha de código e cada
-              arquitectura que desenhamos.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {valores.map((valor) => (
-              <Card key={valor.titulo} hover className="group">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600/20 to-accent-600/20 text-brand-400 ring-1 ring-brand-600/20">
-                    <valor.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-surface-50">
-                    {valor.titulo}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-surface-400">
-                    {valor.descricao}
-                  </p>
-                </CardContent>
-              </Card>
             ))}
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
-      {/* ── Equipa ───────────────────────────── */}
-      <Section>
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <Badge className="mb-4">Equipa</Badge>
-            <h2 className="text-3xl font-bold tracking-tight text-surface-50 sm:text-4xl">
-              Conheça quem faz acontecer
-            </h2>
-            <p className="mt-4 text-surface-400">
-              Profissionais apaixonados por tecnologia, unidos por um objectivo
-              comum: transformar desafios complexos em soluções elegantes.
-            </p>
+      {/* Valores */}
+      <div className="border-y border-slate-200/60 bg-slate-50">
+        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <SectionHeading eyebrow="Os nossos valores" title="O que nos define" lede="Princípios que guiam cada decisão, cada linha de código e cada arquitectura que desenhamos." />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {valores.map((v) => (
+              <article
+                key={v.titulo}
+                className="ca-rise rounded-3xl border border-slate-200/60 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(10,27,51,0.25)] transition-transform duration-300 hover:-translate-y-1.5"
+              >
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-2xl text-white"
+                  style={{ background: `linear-gradient(135deg, ${v.hue}, ${v.hue}cc)`, boxShadow: `0 10px 24px -8px ${v.hue}66` }}
+                >
+                  <v.icon className="h-5 w-5" />
+                </div>
+                <h3 className="ca-font-display mt-4 text-lg font-semibold text-[#0a1b33]">{v.titulo}</h3>
+                <p className="ca-font-sans mt-2 text-sm leading-relaxed text-slate-600">{v.descricao}</p>
+              </article>
+            ))}
           </div>
+        </section>
+      </div>
 
-          <div className="mt-12">
-            <Card className="border-dashed border-surface-600/50 bg-surface-850/50 py-16 text-center">
-              <CardContent>
-                <Users className="mx-auto h-16 w-16 text-surface-600" />
-                <h3 className="mt-4 text-xl font-semibold text-surface-400">
-                  Em breve
-                </h3>
-                <p className="mt-2 max-w-md mx-auto text-sm text-surface-500">
-                  Estamos a preparar as apresentações da nossa equipa. Fique
-                  atento — em breve poderá conhecer cada um dos nossos
-                  especialistas.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+      {/* Equipa */}
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Equipa" title="Quem faz acontecer" lede="Profissionais apaixonados por tecnologia, unidos por um objectivo: transformar desafios complexos em soluções elegantes." />
+        <div className="ca-rise mt-10 rounded-3xl border border-dashed border-slate-300 bg-white/60 py-16 text-center">
+          <Users className="mx-auto h-12 w-12 text-slate-400" />
+          <h3 className="ca-font-display mt-4 text-xl font-semibold text-[#0a1b33]">Em breve</h3>
+          <p className="ca-font-sans mx-auto mt-2 max-w-md text-sm text-slate-500">Estamos a preparar as apresentações da equipa. Em breve poderá conhecer cada um dos nossos especialistas.</p>
+        </div>
+        <div className="ca-rise mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          {chips.map((c) => (
+            <span key={c} className="ca-font-sans inline-flex items-center gap-2 font-mono text-[0.72rem] text-slate-500">
+              <Check className="h-3.5 w-3.5" style={{ color: HUE.green }} />
+              {c}
+            </span>
+          ))}
+        </div>
+      </section>
 
-          {/* Trust indicators */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-surface-500">
-            <span className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand-500" />
-              +50 projectos entregues
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand-500" />
-              Clientes em 3 continentes
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand-500" />
-              99.9% SLA médio
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand-500" />
-              Certificações AWS, Azure & GCP
-            </span>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── CTA ────────────────────────────────── */}
-      <Section muted>
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-surface-50 sm:text-4xl">
-              Vamos construir algo extraordinário?
-            </h2>
-            <p className="mt-4 text-lg text-surface-400">
-              Agende uma conversa sem compromisso e descubra como a Cloud
-              Architects pode acelerar a transformação digital da sua empresa.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href="/contacto">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Iniciar Conversa
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link href="/solucoes">
-                <Button variant="ghost" size="lg" className="w-full sm:w-auto">
-                  Conhecer Soluções
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <CTASection
+        title="Vamos construir algo extraordinário?"
+        text="Agende uma conversa sem compromisso e descubra como a Cloud Architects pode acelerar a transformação digital da sua empresa."
+        primary={{ href: "/contacto", label: "Iniciar conversa" }}
+        secondary={{ href: "/solucoes", label: "Conhecer soluções" }}
+      />
     </>
   );
 }
-
-/* ─── Valores Data ───────────────────────── */
-
-const valores = [
-  {
-    icon: Shield,
-    titulo: "Excelência Técnica",
-    descricao:
-      "Cada arquitectura é desenhada com os mais altos padrões de qualidade, segurança e performance. Não comprometemos a excelência.",
-  },
-  {
-    icon: Heart,
-    titulo: "Paixão pela Inovação",
-    descricao:
-      "Exploramos constantemente novas tecnologias e abordagens para oferecer soluções que estão na vanguarda do mercado cloud.",
-  },
-  {
-    icon: Handshake,
-    titulo: "Parceria Transparente",
-    descricao:
-      "Acreditamos numa relação aberta e honesta com os nossos clientes. Comunicamos com clareza e alinhamento constante.",
-  },
-  {
-    icon: Zap,
-    titulo: "Agilidade e Eficiência",
-    descricao:
-      "Entregamos resultados com rapidez sem sacrificar a qualidade. Processos optimizados e equipas focadas em valor real.",
-  },
-  {
-    icon: Lightbulb,
-    titulo: "Pensamento Crítico",
-    descricao:
-      "Desafiamos o status quo. Questionamos premissas e desenhamos soluções que realmente resolvem problemas, não apenas os disfarçam.",
-  },
-  {
-    icon: Rocket,
-    titulo: "Impacto no Negócio",
-    descricao:
-      "Cada projecto é medido pelo impacto real nos objectivos de negócio dos nossos clientes. Tecnologia que gera resultados tangíveis.",
-  },
-];

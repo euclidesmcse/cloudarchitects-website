@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import crypto from 'crypto'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -8,6 +9,16 @@ export const Media: CollectionConfig = {
   admin: {
     group: 'Conteúdo',
     description: 'Ficheiros multimédia (imagens, documentos)',
+  },
+  hooks: {
+    beforeChange: [
+      ({ data, operation }) => {
+        if (operation === 'create' && !data.id) {
+          data.id = crypto.randomUUID()
+        }
+        return data
+      },
+    ],
   },
   upload: {
     staticDir: 'media',

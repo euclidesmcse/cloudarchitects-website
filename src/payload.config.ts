@@ -14,6 +14,8 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    suppressHydrationWarning: true,
+    theme: 'light',
     user: 'users',
     meta: {
       titleSuffix: ' | Cloud Architects CMS',
@@ -23,19 +25,22 @@ export default buildConfig({
       createFirstUser: '/create-first-user',
       forgot: '/forgot',
       logout: '/logout',
-      unauthorized: '/unauthorized',
     },
+    components: {},
   },
-  collections: [Post, Media, Category, Users],
+  collections: [Users, Post, Media, Category],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, '../payload-types.ts'),
-  },
+  secret: (() => {
+    const secret = process.env.PAYLOAD_SECRET;
+    if (!secret) throw new Error('PAYLOAD_SECRET é obrigatório');
+    return secret;
+  })(),
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URI || 'file:./data/payload.db',
+      url: process.env.DATABASE_URI || `file:${path.resolve(dirname, 'data/payload.db')}`,
     },
-    push: true,
   }),
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 })

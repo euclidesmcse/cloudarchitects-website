@@ -4,9 +4,13 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Inject header so RootLayout can skip public Header/Footer on admin routes
+  // Inject header so RootLayout can pick the right chrome:
+  //  - admin  → Payload renderiza o seu próprio <html>/<body>
+  //  - home   → landing clara/self-contained (sem header/rodapé escuros)
+  //  - public → páginas internas com header/rodapé
+  const group = pathname.startsWith("/admin") ? "admin" : pathname === "/" ? "home" : "public";
   const response = NextResponse.next();
-  response.headers.set("x-route-group", pathname.startsWith("/admin") ? "admin" : "public");
+  response.headers.set("x-route-group", group);
   return response;
 }
 

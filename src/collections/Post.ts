@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import crypto from 'crypto'
 
 export const Post: CollectionConfig = {
   slug: 'posts',
@@ -11,6 +12,16 @@ export const Post: CollectionConfig = {
   access: {
     read: () => true,
     create: () => true,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data, operation }) => {
+        if (operation === 'create' && !data.id) {
+          data.id = crypto.randomUUID()
+        }
+        return data
+      },
+    ],
   },
   fields: [
     {

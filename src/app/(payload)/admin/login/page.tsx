@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function CustomLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -26,8 +24,10 @@ export default function CustomLoginPage() {
       const data = await res.json();
 
       if (data.token) {
-        // Login successful — redirect to admin
-        router.push('/admin');
+        // Store JWT token (useSessions: false), then redirect
+        localStorage.setItem('payload-token', data.token);
+        window.location.href = '/admin';
+        return;
       } else {
         setError(data.errors?.[0]?.message || 'Credenciais inválidas');
       }
@@ -64,7 +64,7 @@ export default function CustomLoginPage() {
         </p>
 
         {error && (
-          <div style={{
+          <div role="alert" style={{
             backgroundColor: 'rgba(255,0,0,0.1)',
             border: '1px solid rgba(255,0,0,0.3)',
             color: '#ff6b6b',
